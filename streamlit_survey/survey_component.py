@@ -126,7 +126,10 @@ class SurveyComponent(ABC):
                     # Note: Streamlit widget keys get automatically deleted from st.session_state. This restores widgets to their default value when they are no longer displayed. To get around this issue, we automatically restore widget values from the survey data when it is available.
                     st.session_state[self.key] = decoder(self.value)
 
-                value = Class(label=self.label, **self.kwargs)
+                try:
+                    value = Class(label=self.label, **self.kwargs)
+                except:
+                    value = Class(**self.kwargs)
                 self.value = encoder(value)
 
         return StreamlitInput
